@@ -1,0 +1,124 @@
+<div #screen class="margin-top-70px">
+    <mat-card class="example-card feedback-wrapper" scroll-id="feedback">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>ENa</mat-card-title>
+            <mat-card-subtitle>Recruiter</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+        <br>
+
+        <mat-card-content>
+            <div class="feedback-question col-9" *ngIf="firstQuestionVisible" scroll-id="firstFeedbackQuestionScroll">
+                <p>You have completed {{dataStats.completedSections}}/{{dataStats.totalSections}} sections and
+                    {{progressBarValue}}% of the questions</p>
+                <mat-progress-bar mode="determinate" [value]="progressBarValue"></mat-progress-bar>
+                <br>
+                <p *ngIf="progressBarValue<80">You didn't ask several questions, why so?</p>
+                <p *ngIf="progressBarValue>=80">It seems the candidate has a quite balanced time management, right?</p>
+                <p>Can You tell us more about {{candidateName}} tech skills?</p>
+            </div>
+
+            <div class="feedback-answer col-9 offset-3" *ngIf="firstAnswerVisible" (click)="editFirstAnswer()"
+                [ngClass]="{'active': firstTextareaVisible}" #tooltip="matTooltip" matTooltip="click to edit"
+                [matTooltipPosition]="'below'">
+                <p class="feedback-answer-message">
+                    <span *ngIf="firstAnswerMessage">{{firstAnswerMessage}}</span>
+                    <span *ngIf="!firstAnswerMessage">[ no answer provided ]</span>
+                    <mat-icon class="col-1">edit</mat-icon>
+                </p>
+            </div>
+
+            <div class="feedback-question col-9" *ngIf="secondQuestionVisible" scroll-id="secondFeedbackQuestionScroll">
+                So what's your personal opinion? Does it look like {{candidateName}} is mature enough?
+                <br><br>Does this candidate have quite well or maybe implressive soft skills?
+                <br><br>Do You seem to have faced a fast tracker with potential dynamic growth?
+                <br><br>What about the attitude? Eager to learn? Experienced in some projects? A problem solving person?
+                <br><br>Do you feel you've just meet your new colleague after all?
+                <br><br>Tell us your feedback please.
+            </div>
+
+            <div class="feedback-answer col-9 offset-3" *ngIf="secondAnswerVisible" (click)="editSecondAnswer()"
+                [ngClass]="{'active': secondTextareaVisible}">
+                <p class="feedback-answer-message">
+                    <span *ngIf="secondAnswerMessage">{{secondAnswerMessage}}</span>
+                    <span *ngIf="!secondAnswerMessage">[ no answer provided ]</span>
+                    <mat-icon class="col-1">edit</mat-icon>
+                </p>
+            </div>
+
+            <div class="feedback-question col-9" *ngIf="thirdQuestionVisible" scroll-id="thirdFeedbackQuestionScroll">
+                Any thoughts about grade?
+                These are the tech results, just as an assistance.
+                <br>
+
+                <app-report-progressbar *ngIf="progressBarReportModelList && progressBarReportModelList.length"
+                    [progressBarReportModelList]="progressBarReportModelList" [sectionNameList]="sectionNameList">
+                </app-report-progressbar>
+            </div>
+
+            <div class="feedback-answer col-9 offset-3" *ngIf="thirdAnswerVisible" (click)="editThirdAnswer()"
+                [ngClass]="{'active': thirdTextareaVisible}">
+                <p class="feedback-answer-message">
+                    <span *ngIf="thirdAnswerMessage">{{thirdAnswerMessage}}</span>
+                    <span *ngIf="!thirdAnswerMessage">[ no answer provided ]</span>
+                    <mat-icon class="col-1">edit</mat-icon>
+                </p>
+            </div>
+        </mat-card-content>
+
+        <div class="margin-top-100px">
+            <mat-card-content [ngClass]="{'display-none': !firstTextareaVisible}">
+                <mat-form-field class="full-width">
+                    <mat-label>Post a message for the first one</mat-label>
+                    <textarea matInput #txtValFirst="matInput" placeholder=""
+                        (keydown.enter)="postFirstMessage(txtValFirst.value)"></textarea>
+                </mat-form-field>
+                <mat-icon class="float-right cursor-pointer" (click)="postFirstMessage(txtValFirst.value)">send
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-content [ngClass]="{'display-none': !secondTextareaVisible}">
+                <mat-form-field class="full-width">
+                    <mat-label>Post a message for the second one</mat-label>
+                    <textarea matInput #txtValSecond="matInput" placeholder=""
+                        (keydown.enter)="postSecondMessage(txtValSecond.value)"></textarea>
+                </mat-form-field>
+                <mat-icon class="float-right cursor-pointer" (click)="postSecondMessage(txtValSecond.value)">send
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-content [ngClass]="{'display-none': !thirdTextareaVisible}">
+                <mat-form-field class="full-width">
+                    <mat-label>Post a message for the third one</mat-label>
+                    <textarea matInput #txtValThird="matInput" placeholder=""
+                        (keydown.enter)="postThirdMessage(txtValThird.value)"></textarea>
+                </mat-form-field>
+                <mat-icon class="float-right cursor-pointer" (click)="postThirdMessage(txtValThird.value)">send
+                </mat-icon>
+            </mat-card-content>
+            <br>
+        </div>
+    </mat-card>
+</div>
+
+<div class="text-align-center margin-top-20px margin-bottom-80px"
+    *ngIf="firstAnswerMessage && secondAnswerMessage && thirdAnswerMessage">
+    <ng-container>
+        <button scroll-id="finish-button" class="download-feedback-btn" mat-raised-button color="blue"
+            (click)="downloadImage()">
+            <p>Download Feedback Template</p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />
+            </svg>
+        </button>
+    </ng-container>
+</div>
+
+<div id="download" style="display: none">
+    <img #canvas>
+    <a #downloadLink></a>
+</div>

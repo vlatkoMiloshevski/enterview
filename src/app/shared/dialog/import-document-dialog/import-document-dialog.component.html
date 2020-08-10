@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Import new interview document!</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field style="width: 100%">
+            <mat-label>Document name</mat-label>
+            <input matInput formControlName="interviewQuestionName">
+        </mat-form-field>
+        <json-editor [options]="editorOptions" formControlName="interviewQuestionData">
+        </json-editor>
+    </form>
+</div>
+<div *ngIf="showErrorMessage" class="red-color">There is an error, please follow the existing JSON convention!</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button color="blue" (click)="onCancel()">Cancel</button>
+    <button mat-stroked-button color="blue" (click)="onDone()" cdkFocusInitial>Upload</button>
+</div>

@@ -1,0 +1,34 @@
+<form [formGroup]="form" class="margin-10-0">
+    <mat-accordion class="example-headers-align" #accordion="matAccordion" multi [attr.scroll-id]="sectionName">
+        <mat-expansion-panel formArrayName="questionnarie" [disabled]="!isEnabled">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{sectionName}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    &nbsp;
+                    <mat-label>
+                        <span *ngIf="isCompleted" class="green-color">Completed</span>
+                        <span *ngIf="!isCompleted">Not Completed Yet</span>
+                    </mat-label>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div *ngFor="let questionnarie of formQuestionnarie.controls; let i = index" [formGroup]="questionnarie">
+                <div class="questionnarie-wrapper">
+                    <div class="question-content">
+                        <b>Q{{i+1}}:&nbsp;</b><span>{{questionnarie.value.question}}</span>
+                    </div>
+                    <div class="answer-content">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Level</mat-label>
+                            <mat-select formControlName="answer">
+                                <mat-option *ngFor="let level of levels" [value]="level">{{level}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</form>

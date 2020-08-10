@@ -1,0 +1,43 @@
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 1200px;
+    flex-direction: column;
+  }
+
+  .candidate-wrapper { 
+    position: fixed;
+    right: 70px;
+    border-left: 1px dotted lightgray;
+    .title {
+      margin-bottom: 35px;
+    }
+  }
+
+  .candidate-wrapper-small-screen {
+    border-bottom: 1px dotted lightgray;
+    margin-bottom: 50px;
+    .title {
+      margin-bottom: 35px;
+    }
+  }
+
+  .delete-document {
+    position: absolute;
+    right: 10px;
+  }
+
+  .interview-candidate-name {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 2px;
+    z-index: 100000;
+    background-color: white;
+    padding-top: 7px;
+
+    > div {
+      margin-bottom: 10px;
+    }
+  }

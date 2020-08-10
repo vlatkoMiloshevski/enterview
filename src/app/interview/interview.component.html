@@ -1,0 +1,99 @@
+<div class="row margin-bottom-35px">
+    <div class="candidate-wrapper-small-screen col-xs-12 col-sm-10 offset-sm-1 d-block d-sm-block d-md-none">
+        <h3 class="gray-color text-align-center title">Candidate list</h3>
+        <div *ngFor="let candidate of candidateList" class="col-lg-12">
+            <app-candidate-list [interviewId]="interviewId"
+                (questionAnswerListEmitter)="questionAnswerListEmitter($event)"
+                (deleteCandidateEmitter)="deleteCandidateEmitter($event)" [candidate]="candidate">
+            </app-candidate-list>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-10 offset-sm-1 col-md-7 offset-md-1 col-lg-7 offset-lg-2" role="main">
+        <div class="col-lg-12">
+            <div class="float-right cursor-pointer delete-document" title="delete this document"
+                (click)="deleteDocument()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1976d2" width="18px" height="18px">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
+            </div>
+        </div>
+        <h3 class="gray-color text-align-center">{{interviewName}}</h3>
+        <div class="interview-candidate-name">
+            <div class="col-lg-12">
+                <ng-container>
+                    <mat-form-field class="row col-12">
+                        <mat-label>Candidate Name</mat-label>
+                        <input matInput #candidateInput="matInput" type="text" [(ngModel)]="candidateName"
+                            (keyup.enter)="start()">
+                    </mat-form-field>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <button class="col-12" mat-raised-button color="blue" [disabled]="!candidateName" aria-label="Clear"
+                (click)="start()">
+                Start
+            </button>
+        </div>
+
+        <div class="col-lg-12 margin-top-20px">
+            <ng-container *ngFor="let questionBySection of interviewModel">
+                <app-questionnaire [sectionName]="questionBySection.sectionName"
+                    [isEnabled]="questionBySection.isEnabled" [questions]="questionBySection.questionList"
+                    [answers]="questionBySection.answerList" [levels]="levels" (answerEmit)="onAnswer($event)"
+                    (accordionEmit)="onInitEmitAccordions($event)">
+                </app-questionnaire>
+            </ng-container>
+        </div>
+
+        <div class="col-lg-12 margin-top-20px margin-bottom-80px" *ngIf="isGenerateReportButtonVisible">
+            <ng-container>
+                <button scroll-id="finish-button" class="float-right full-width" mat-raised-button color="blue"
+                    (click)="generateReport()">Save Answers</button>
+            </ng-container>
+        </div>
+
+        <div class="col-lg-12 margin-top-20px" *ngIf="isGenerateReportButtonVisible">
+            <ng-container>
+                <div scroll-id="charts" *ngIf="barChartModelList && barChartModelList.length">
+                    <app-bar-chart [barChartModelList]="barChartModelList" [sectionNameList]="sectionNameList"
+                        class="row col-12 margin-0px-auto display-inline-block mobile-hidden margin-top-20px">
+                    </app-bar-chart>
+
+                    <app-pie-chart [pieChartModel]="pieChartModel"
+                        class="row col-12 margin-0px-auto display-inline-block mobile-visible margin-top-20px">
+                    </app-pie-chart>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="col-lg-12 margin-top-20px" *ngIf="isReportVisible">
+            <ng-container>
+                <button scroll-id="finish-button" class="float-right full-width" mat-raised-button color="blue"
+                    (click)="provideFeedback()">Provide
+                    feedback</button>
+            </ng-container>
+        </div>
+
+        <div class="col-lg-12 margin-top-20px" *ngIf="isFeedbackTemplateVisible">
+            <ng-container>
+                <app-feedback-template scroll-id="feedback" [candidateName]="candidateName" [dataStats]="dataStats"
+                    [progressBarReportModelList]="progressBarReportModelList" [sectionNameList]="sectionNameList">
+                </app-feedback-template>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="candidate-wrapper col-lg-2 col-md-3 d-none d-md-block">
+        <h3 class="gray-color text-align-center title">Candidate list</h3>
+        <div *ngFor="let candidate of candidateList">
+            <app-candidate-list [interviewId]="interviewId"
+                (questionAnswerListEmitter)="questionAnswerListEmitter($event)"
+                (deleteCandidateEmitter)="deleteCandidateEmitter($event)" [candidate]="candidate">
+            </app-candidate-list>
+        </div>
+    </div>
+</div>

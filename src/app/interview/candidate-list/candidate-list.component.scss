@@ -1,0 +1,8 @@
+.candidate {
+    font-size: 14px;
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: #1976d2;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,6 @@
+<div class="margin-top-20px">
+    <div *ngFor="let radarChartModel of progressBarReportModelList; let i = index" class="height-20px margin-10-0">
+        {{sectionNameList[i]}}: {{radarChartModel}}%
+        <mat-progress-bar mode="determinate" [value]="radarChartModel"></mat-progress-bar>
+    </div>
+</div>

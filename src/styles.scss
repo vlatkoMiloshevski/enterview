@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~jsoneditor/dist/jsoneditor.min.css";
+
+html, body { height: 100%; font-size: 12px; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.green-color {
+    color: green;
+}
+
+.gray-color {
+    color: gray;
+}
+
+.red-color {
+    color: red;
+}
+
+.float-right {
+    float: right;
+}
+
+.margin-0px-auto {
+    margin: 0px auto;
+}
+
+.margin-10-0 {
+    margin: 10px 0;
+}
+
+.margin-top-20px {
+    margin-top: 20px;
+}
+
+.margin-top-70px {
+    margin-top: 70px;
+}
+
+.margin-top-100px {
+    margin-top:100px
+}
+
+.margin-bottom-35px {
+    margin-bottom: 35px;
+}
+
+.margin-bottom-80px {
+    margin-bottom: 80px;
+}
+
+.margin-left-10px {
+    margin-left: 10px;
+}
+
+.margin-right-10px {
+    margin-right: 10px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.display-inline-flex {
+    display: inline-flex;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.display-contents {
+    display: contents;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.word-break-break-all {
+    word-break: break-all;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.height-100px {
+    height: 100px;
+}
+
+.height-20px {
+    height: 20px;
+}
+
+.mat-raised-button.mat-blue {
+    background-color: #1976d2;
+    color: white;
+}
+
+.mat-icon {
+    color: #1976d2;
+}
+
+.mobile-visible {
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
+    display: none;
+}
+
+.mobile-hidden {
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+    display: block;
+}
+
+.cdk-overlay-container {
+    z-index: 100000;
+}

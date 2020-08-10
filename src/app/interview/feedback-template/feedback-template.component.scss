@@ -1,0 +1,40 @@
+
+.example-header-image {
+    background-image: url('src/assets/images/avatar-feedback_pdr.jpg');
+    background-size: cover;
+}
+
+.feedback-wrapper {
+    margin: 0px auto;
+    .feedback-question {
+        background-color: aliceblue;
+        padding: 10px;
+        border-radius: 10px;
+        width: 80%;
+        margin: 20px 0;
+    }
+    .feedback-answer {
+        width: 80%;
+        cursor: pointer;
+        .feedback-answer-message {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #1976d2;
+            mat-icon {
+                color: white;
+                float: right;
+                margin-right: 5px;
+            }
+        }
+        &.active {
+            .feedback-answer-message {
+                border: 1px dashed #1976d2;
+            }
+        }
+    }
+}
+
+.download-feedback-btn {
+    max-width: 300px;
+    padding: 10px 20px;
+}
