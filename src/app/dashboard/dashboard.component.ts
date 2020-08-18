@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(ImportDocumentDialogComponent, { width: '1000px' });
 
     dialogRef.afterClosed().subscribe((data: { interviewQuestionName: string, interviewQuestionData: QuestionnaireModel[] }) => {
-      if (!data.interviewQuestionName || !data.interviewQuestionData) { return; }
+      if (!data || !data.interviewQuestionName || !data.interviewQuestionData) { return; }
 
       const id = uuidv4();
       this.interviewList.push({ id, name: data.interviewQuestionName, data: data.interviewQuestionData });
