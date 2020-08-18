@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LEVEL_CONSTANT_LIST, QuestionnarieAnswerModel, AnswerModel, DataStats, QuestionnaireModel } from '../shared/models/questionnarie.model';
 import { scrollToService } from '../shared/helpers/scroll-to.service';
 import { MatInput } from '@angular/material/input';
@@ -10,6 +10,7 @@ import { SCROLL_CONSTANTS } from '../shared/helpers/scroll-to.constants';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDocumentDialogComponent } from '../shared/dialog/delete-document-dialog/delete-document-dialog.component';
 import { CandidateModel, QuestionAnswerModel } from 'src/app/shared/models/questionnarie.model';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-interview',
@@ -36,6 +37,10 @@ export class InterviewComponent implements OnInit {
   progressBarReportModelList: any;
   interviewId: any;
   candidateList: CandidateModel[] = [];
+
+  @ViewChild('screen') screen: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('downloadLink') downloadLink: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -250,6 +255,19 @@ export class InterviewComponent implements OnInit {
               ? Math.round(this.progressBarReportModelList[interviewModelIndex] / this.questionAnswerList[interviewModel.sectionName].length)
               : 0;
         }
+      });
+    });
+  }
+
+  public downloadEmit() {
+    this.interviewModel.forEach(document => document.accordion.openAll());
+
+    interval(1000).pipe(first()).subscribe(() => {
+      html2canvas(this.screen.nativeElement).then(canvas => {
+        this.canvas.nativeElement.src = canvas.toDataURL();
+        this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+        this.downloadLink.nativeElement.download = `${this.candidateName}_qna.png`;
+        this.downloadLink.nativeElement.click();
       });
     });
   }

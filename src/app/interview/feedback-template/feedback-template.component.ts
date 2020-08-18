@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input, OnChanges, SimpleChanges, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { interval } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -17,6 +17,7 @@ export class FeedbackTemplateComponent implements OnInit, OnChanges, AfterViewIn
   @Input() dataStats: DataStats;
   @Input() progressBarReportModelList: Array<number[]>;
   @Input() sectionNameList: string[];
+  @Output() downloadEmit: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('screen') screen: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -168,9 +169,11 @@ export class FeedbackTemplateComponent implements OnInit, OnChanges, AfterViewIn
     html2canvas(this.screen.nativeElement).then(canvas => {
       this.canvas.nativeElement.src = canvas.toDataURL();
       this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-      this.downloadLink.nativeElement.download = `${this.candidateName}.png`;
+      this.downloadLink.nativeElement.download = `${this.candidateName}_feedback.png`;
       this.downloadLink.nativeElement.click();
     });
+
+    this.downloadEmit.emit();
   }
 
 }

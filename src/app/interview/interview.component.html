@@ -39,7 +39,7 @@
             </button>
         </div>
 
-        <div class="col-lg-12 margin-top-20px">
+        <div class="col-lg-12 margin-top-20px" #screen>
             <ng-container *ngFor="let questionBySection of interviewModel">
                 <app-questionnaire [sectionName]="questionBySection.sectionName"
                     [isEnabled]="questionBySection.isEnabled" [questions]="questionBySection.questionList"
@@ -81,7 +81,8 @@
         <div class="col-lg-12 margin-top-20px" *ngIf="isFeedbackTemplateVisible">
             <ng-container>
                 <app-feedback-template scroll-id="feedback" [candidateName]="candidateName" [dataStats]="dataStats"
-                    [progressBarReportModelList]="progressBarReportModelList" [sectionNameList]="sectionNameList">
+                    [progressBarReportModelList]="progressBarReportModelList" [sectionNameList]="sectionNameList"
+                    (downloadEmit)="downloadEmit()">
                 </app-feedback-template>
             </ng-container>
         </div>
@@ -96,4 +97,9 @@
             </app-candidate-list>
         </div>
     </div>
+</div>
+
+<div id="download" style="display: none">
+    <img #canvas>
+    <a #downloadLink></a>
 </div>
